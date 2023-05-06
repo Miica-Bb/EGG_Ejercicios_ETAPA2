@@ -1,0 +1,23 @@
+package poo_cs_ejerc1;
+
+import Entidad.CuentaBancaria;
+import Servicio.CuentaBancariaServicio;
+
+/**
+ *
+ * @author Admin
+ */
+public class POO_cs_ejerc1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        CuentaBancariaServicio cliente = new CuentaBancariaServicio();
+        
+        CuentaBancaria logIn = cliente.crearCuenta();
+        cliente.menu();
+        
+    }
+    
+}

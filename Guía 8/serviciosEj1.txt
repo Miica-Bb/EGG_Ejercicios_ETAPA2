@@ -1,0 +1,158 @@
+package Servicio;
+
+
+import Entidad.CuentaBancaria;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Admin
+ */
+public class CuentaBancariaServicio {
+   CuentaBancaria c1234 = new CuentaBancaria();
+    
+    public CuentaBancaria crearCuenta() {
+        
+        Scanner leer = new Scanner(System.in);
+        
+        System.out.println("Ingrese su nombre");
+        c1234.setNombre(leer.nextLine());
+        
+        System.out.println("Ingrese su dni");
+        c1234.setDniCliente(leer.nextLong());
+        
+        System.out.println("Ingrese número de cuenta");
+        c1234.setNumeroCuenta(leer.nextInt()); 
+        
+        
+      return c1234;
+        
+    }
+    
+    public void menu() {
+        Scanner leer0 = new Scanner(System.in);
+        
+        System.out.println("Ingrese la operación que desea realizar");
+        System.out.println("[1] - Depósito");
+        System.out.println("[2] - Extracción");
+        System.out.println("[3] - Extracción Rápida");
+        System.out.println("[4] - Consultar Saldo");
+        System.out.println("[5] - Consultar Datos");
+        System.out.println("[6] - Salir del sistema");
+        
+        int opc = leer0.nextInt();
+        
+        switch (opc) {
+            case 1:
+                ingresar();
+                break;
+            case 2: 
+                retirar();
+                break;
+            case 3:
+                extraccionRapida();
+                break;
+            case 4:
+                consultarSaldo();
+                break;
+            case 5:
+                consultarDatos();
+                break;
+            case 6:
+                System.out.println("Ha salido del sistema");
+                break;
+            default: 
+                System.out.println("No ha solicitado una opción válida");
+                System.out.println("Inténtelo nuevamente");
+                System.out.println("");
+                menu();
+        }
+    }
+    
+    public void ingresar() {
+        Scanner leer1 = new Scanner(System.in);
+        Scanner leer1a = new Scanner(System.in);
+        String rta;
+        
+        do {
+            System.out.println("Ingrese el monto que desea depositar");
+            double montoIn = leer1.nextDouble();
+
+            c1234.setSaldoActual(c1234.getSaldoActual() + montoIn); 
+         
+                System.out.println("El monto ha sido acreditado");
+                System.out.println("Saldo actual: $" + c1234.getSaldoActual());
+           
+
+            System.out.println("¿Desea depositar otro monto? [S/N]");
+            rta = leer1a.nextLine();
+        } while (rta.equals("s") || rta.equals("S"));
+
+        if (rta.equals("n") || rta.equals("N")) {
+            menu();
+        }        
+    }
+    
+    public void retirar() {
+        Scanner leer2 = new Scanner(System.in);
+        Scanner leer2a = new Scanner(System.in);
+        String rta1;
+        
+        do {
+            System.out.println("Ingrese el monto que desea retirar");
+            double montoOut = leer2.nextDouble();
+
+           if (montoOut <= c1234.getSaldoActual()) {
+                c1234.setSaldoActual(c1234.getSaldoActual() - montoOut); 
+                System.out.println("El monto ha sido debitado");
+                System.out.println("Saldo actual: $" + c1234.getSaldoActual());
+           }else {
+                System.out.println("El saldo es insuficiente, no es posible retirar el monto solicitado");
+                System.out.println("El saldo ha sido debitado $" + c1234.getSaldoActual());
+                c1234.setSaldoActual(c1234.getSaldoActual() - c1234.getSaldoActual());
+                System.out.println("Saldo actual: $" + c1234.getSaldoActual());
+           }
+
+            System.out.println("¿Desea extraer otro monto? [S/N]");
+            rta1 = leer2a.nextLine();
+        } while (rta1.equals("s") || rta1.equals("S"));
+
+        if (rta1.equals("n") || rta1.equals("N")) {
+           menu();
+        }        
+    }
+ 
+    public void extraccionRapida() {
+        Scanner leer3 = new Scanner(System.in);
+        Scanner leer3a = new Scanner(System.in);
+        String rta2;
+        
+        do {
+            System.out.println("Ingrese el monto que desea extraer (Máximo 20% del saldo en cuenta)");
+            double montoEr = leer3.nextDouble();
+
+            if (montoEr <= c1234.getSaldoActual()*0.2) {
+                c1234.setSaldoActual(c1234.getSaldoActual() - montoEr); 
+                System.out.println("El monto ha sido debitado");
+                System.out.println("Saldo actual: $" + c1234.getSaldoActual());
+           }else {
+                System.out.println("El monto solicitado supera el 20% del saldo en cuenta");
+                System.out.println("No es posible retirar el monto solicitado");
+                System.out.println("Saldo actual: $" + c1234.getSaldoActual());  
+           }
+
+            System.out.println("¿Desea extraer otro monto? [S/N]");
+            rta2 = leer3a.nextLine();
+        } while (rta2.equals("s") || rta2.equals("S"));
+
+        if (rta2.equals("n") || rta2.equals("N")) {
+            menu();
+        }        
+    }  
+    
+    public void consultarSaldo() {
+      
+      System.out.println("El saldo actual es de: $" + c1234.getSaldoActual());
+      menu();
+  }
+}
