@@ -1,0 +1,8 @@
+public void InvertirFrase(Cadena frase) {
+        String fraseInvertida = "";
+            for (int i = frase.getLongFrase() - 1; i >= 0; i--) {
+                fraseInvertida += frase.getFrase().charAt(i);
+        }
+        System.out.println("la frase invertida es: " + fraseInvertida);
+    }
+}
